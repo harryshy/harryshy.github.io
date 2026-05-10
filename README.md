@@ -1,1 +1,308 @@
 # harryshy.github.io
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harry Shy — Graphic Designer & 3D Artist</title>
+<meta name="description" content="Harry Shy — Graphic Designer & 3D Artist based in Singapore.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#080808;--fg:#f0ede6;--acc:#c8f542;--mu:#222;--mu2:#555}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:'Space Grotesk','Helvetica Neue',Arial,sans-serif;overflow-x:hidden;cursor:none}
+
+#cur{position:fixed;width:10px;height:10px;background:var(--acc);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s;mix-blend-mode:difference}
+#cur2{position:fixed;width:36px;height:36px;border:1px solid rgba(240,237,230,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+body.hov #cur{width:20px;height:20px}
+body.hov #cur2{width:72px;height:72px}
+
+#loader{position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;flex-direction:column;justify-content:flex-end;padding:4rem}
+.ldr-name{font-size:clamp(4rem,11vw,13rem);font-weight:700;letter-spacing:-.04em;line-height:.88;text-transform:uppercase}
+.ldr-name em{color:var(--acc);font-style:italic}
+.ldr-bar-wrap{width:100%;height:1px;background:var(--mu);margin-top:3rem;overflow:hidden}
+#ldrBar{height:100%;background:var(--acc);width:0;transition:width 1.5s cubic-bezier(.76,0,.24,1)}
+.ldr-pct{margin-top:1rem;font-size:.75rem;letter-spacing:.25em;opacity:.35}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:difference}
+.nav-logo{font-size:.8rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--fg);text-decoration:none}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{color:var(--fg);text-decoration:none;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;opacity:.45;transition:opacity .3s}
+.nav-links a:hover{opacity:1}
+
+.hero{height:100vh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:4rem 3rem;overflow:hidden}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-tag{position:absolute;top:50%;right:3rem;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;opacity:.25;transform:translateY(-50%) rotate(90deg);transform-origin:right center}
+.hero-content{position:relative;z-index:2}
+.hero-label{font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;opacity:.35;margin-bottom:1.5rem}
+.hero-h1{font-size:clamp(5rem,15vw,17rem);font-weight:700;line-height:.86;text-transform:uppercase;letter-spacing:-.04em}
+.hero-h1 .ln{display:block;overflow:hidden}
+.hero-h1 .lni{display:block}
+.hero-h1 .acc{color:var(--acc);font-style:italic}
+.hero-btm{display:flex;justify-content:space-between;align-items:flex-end;margin-top:2.5rem}
+.hero-desc{font-size:.95rem;line-height:1.75;opacity:.45;max-width:260px}
+.scue{display:flex;flex-direction:column;align-items:center;gap:.5rem;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;opacity:.25}
+.strack{width:1px;height:48px;background:rgba(240,237,230,.2);position:relative;overflow:hidden}
+.sfill{position:absolute;top:0;left:0;width:100%;height:100%;background:var(--acc);animation:sf 2s ease-in-out infinite}
+@keyframes sf{0%{transform:scaleY(0);transform-origin:top}49%{transform:scaleY(1);transform-origin:top}50%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+.mwrap{border-top:1px solid var(--mu);border-bottom:1px solid var(--mu);padding:1.2rem 0;overflow:hidden}
+.minner{display:flex;width:max-content;animation:mq 28s linear infinite}
+.minner:hover{animation-play-state:paused}
+.mchunk{display:flex;align-items:center;white-space:nowrap;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;opacity:.4}
+.mdot{color:var(--acc);font-size:1.1rem;margin:0 1.5rem;opacity:1}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-33.333%)}}
+
+#works{padding:8rem 3rem 0}
+.eye{font-size:.68rem;letter-spacing:.35em;text-transform:uppercase;opacity:.28;margin-bottom:1.2rem}
+.sh2{font-size:clamp(3rem,9vw,10rem);font-weight:700;text-transform:uppercase;letter-spacing:-.04em;line-height:.88;margin-bottom:4rem}
+.dhint{display:flex;align-items:center;gap:1rem;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;opacity:.2;margin-bottom:2rem}
+.dline{flex:0 0 36px;height:1px;background:var(--fg)}
+.dscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;cursor:grab;margin:0 -3rem;padding:0 3rem;user-select:none}
+.dscroll::-webkit-scrollbar{display:none}
+.dscroll.grab{cursor:grabbing}
+.wrow{display:flex;gap:1.5rem;padding-bottom:5rem;width:max-content}
+.wc{flex:0 0 330px;transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
+.wc:hover{transform:translateY(-10px)}
+.wc-img{height:420px;border-radius:6px;overflow:hidden;position:relative}
+.wc-bg{width:100%;height:100%;transition:transform .6s cubic-bezier(.25,.46,.45,.94);display:flex;align-items:center;justify-content:center}
+.wc:hover .wc-bg{transform:scale(1.06)}
+/* ── REPLACE these with background-image: url('images/yourfile.jpg'); background-size:cover ── */
+.b1{background:linear-gradient(150deg,#0f0c29,#302b63,#24243e)}
+.b2{background:linear-gradient(150deg,#1a1a2e,#0f3460,#0a3d2b)}
+.b3{background:linear-gradient(150deg,#2d0000,#6b0000,#c8f542 200%)}
+.b4{background:linear-gradient(150deg,#141e30,#243b55,#3a6073)}
+.b5{background:linear-gradient(150deg,#0f2027,#203a43,#2c5364)}
+.b6{background:linear-gradient(150deg,#1a1a1a,#3a3a3a,#c8f542 220%)}
+.wc-ico{width:55px;height:55px;opacity:.1}
+.wc-meta{padding:1.2rem 0 0;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.wc-title{font-size:1.05rem;font-weight:600;line-height:1.3}
+.wc-yr{font-size:.65rem;opacity:.25;margin-top:.2rem}
+.wc-tag{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(240,237,230,.18);padding:.28rem .75rem;border-radius:100px;white-space:nowrap;flex-shrink:0}
+
+#about{padding:12rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.abig{font-size:clamp(2.2rem,4vw,4.8rem);font-weight:700;line-height:1.08;letter-spacing:-.025em}
+.abig em{color:var(--acc);font-style:italic}
+.aright{display:flex;flex-direction:column;gap:1.5rem}
+.ap{font-size:.95rem;line-height:1.82;opacity:.5}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:.5rem;padding-top:2rem;border-top:1px solid var(--mu)}
+.sn{font-size:3.2rem;font-weight:700;color:var(--acc);line-height:1}
+.sl{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;opacity:.3;margin-top:.3rem}
+
+#contact{padding:8rem 3rem 5rem;border-top:1px solid var(--mu)}
+.ch2{font-size:clamp(3rem,11vw,13rem);font-weight:700;text-transform:uppercase;letter-spacing:-.04em;line-height:.86;margin-bottom:5rem}
+.ch2 .it{font-style:italic;color:var(--acc)}
+.cemail{display:inline-block;font-size:clamp(1.1rem,2.5vw,2.2rem);font-weight:600;color:var(--fg);text-decoration:none;margin-bottom:4rem;position:relative;transition:color .3s}
+.cemail::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--acc);transition:width .4s cubic-bezier(.25,.46,.45,.94)}
+.cemail:hover{color:var(--acc)}
+.cemail:hover::after{width:100%}
+.srow{display:flex;gap:2.5rem;flex-wrap:wrap}
+.sl2{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg);text-decoration:none;opacity:.28;transition:opacity .3s;position:relative}
+.sl2::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--acc);transition:width .3s}
+.sl2:hover{opacity:1}
+.sl2:hover::after{width:100%}
+
+footer{padding:1.8rem 3rem;display:flex;justify-content:space-between;border-top:1px solid var(--mu);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;opacity:.18}
+.noise{position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px}
+.rv{opacity:0;transform:translateY(52px)}
+.rvl{opacity:0;transform:translateX(-65px)}
+.rvr{opacity:0;transform:translateX(65px)}
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<div id="loader">
+  <div class="ldr-name">HARRY<br><em>SHY.</em></div>
+  <div class="ldr-bar-wrap"><div id="ldrBar"></div></div>
+  <div class="ldr-pct" id="ldrPct">0%</div>
+</div>
+
+<div id="cur"></div>
+<div id="cur2"></div>
+
+<nav>
+  <a href="#" class="nav-logo">HS</a>
+  <ul class="nav-links">
+    <li><a href="#works">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-tag">Graphic Design &amp; 3D Art — Singapore</div>
+  <div class="hero-content">
+    <div class="hero-label">Available for projects — 2025</div>
+    <h1 class="hero-h1">
+      <span class="ln"><span class="lni" id="hl1">HARRY</span></span>
+      <span class="ln"><span class="lni acc" id="hl2">SHY.</span></span>
+    </h1>
+    <div class="hero-btm">
+      <p class="hero-desc">Crafting bold visuals at the intersection of graphic design and 3D art. I make things that stop the scroll.</p>
+      <div class="scue"><div class="strack"><div class="sfill"></div></div><span>Scroll</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="mwrap">
+  <div class="minner">
+    <div class="mchunk">Graphic Design<span class="mdot">✦</span>3D Art<span class="mdot">✦</span>Branding<span class="mdot">✦</span>Motion Design<span class="mdot">✦</span>Visual Identity<span class="mdot">✦</span>Illustration<span class="mdot">✦</span>Concept Art<span class="mdot">✦</span>Typography<span class="mdot">✦</span>Art Direction<span class="mdot">✦</span></div>
+    <div class="mchunk">Graphic Design<span class="mdot">✦</span>3D Art<span class="mdot">✦</span>Branding<span class="mdot">✦</span>Motion Design<span class="mdot">✦</span>Visual Identity<span class="mdot">✦</span>Illustration<span class="mdot">✦</span>Concept Art<span class="mdot">✦</span>Typography<span class="mdot">✦</span>Art Direction<span class="mdot">✦</span></div>
+    <div class="mchunk">Graphic Design<span class="mdot">✦</span>3D Art<span class="mdot">✦</span>Branding<span class="mdot">✦</span>Motion Design<span class="mdot">✦</span>Visual Identity<span class="mdot">✦</span>Illustration<span class="mdot">✦</span>Concept Art<span class="mdot">✦</span>Typography<span class="mdot">✦</span>Art Direction<span class="mdot">✦</span></div>
+  </div>
+</div>
+
+<section id="works">
+  <div class="eye rv">Selected Works</div>
+  <h2 class="sh2 rv">WORK<br>&amp; PLAY</h2>
+  <div class="dhint rv"><div class="dline"></div><span>Drag to explore</span></div>
+  <div class="dscroll" id="ds">
+    <div class="wrow">
+      <div class="wc">
+        <div class="wc-img"><div class="wc-bg b1"><!-- Replace b1 with background-image --><svg class="wc-ico" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="26" stroke="white" stroke-width="1.5"/><circle cx="30" cy="30" r="10" fill="white"/></svg></div></div>
+        <div class="wc-meta"><div><div class="wc-title">Brand Identity</div><div class="wc-yr">2024</div></div><div class="wc-tag">Branding</div></div>
+      </div>
+      <div class="wc">
+        <div class="wc-img"><div class="wc-bg b2"><!-- Replace b2 --><svg class="wc-ico" viewBox="0 0 60 60" fill="none"><polygon points="30,5 55,52 5,52" stroke="white" stroke-width="1.5"/></svg></div></div>
+        <div class="wc-meta"><div><div class="wc-title">3D Environment</div><div class="wc-yr">2024</div></div><div class="wc-tag">3D Art</div></div>
+      </div>
+      <div class="wc">
+        <div class="wc-img"><div class="wc-bg b3"><!-- Replace b3 --><svg class="wc-ico" viewBox="0 0 60 60" fill="none"><rect x="8" y="8" width="44" height="44" rx="4" stroke="white" stroke-width="1.5"/></svg></div></div>
+        <div class="wc-meta"><div><div class="wc-title">Poster Series</div><div class="wc-yr">2024</div></div><div class="wc-tag">Print</div></div>
+      </div>
+      <div class="wc">
+        <div class="wc-img"><div class="wc-bg b4"><!-- Replace b4 --><svg class="wc-ico" viewBox="0 0 60 60" fill="none"><path d="M30 4L56 30L30 56L4 30Z" stroke="white" stroke-width="1.5"/></svg></div></div>
+        <div class="wc-meta"><div><div class="wc-title">3D Character</div><div class="wc-yr">2023</div></div><div class="wc-tag">3D Art</div></div>
+      </div>
+      <div class="wc">
+        <div class="wc-img"><div class="wc-bg b5"><!-- Replace b5 --><svg class="wc-ico" viewBox="0 0 60 60" fill="none"><circle cx="20" cy="20" r="13" stroke="white" stroke-width="1.5"/><circle cx="40" cy="40" r="13" stroke="white" stroke-width="1.5"/></svg></div></div>
+        <div class="wc-meta"><div><div class="wc-title">Editorial Design</div><div class="wc-yr">2023</div></div><div class="wc-tag">Editorial</div></div>
+      </div>
+      <div class="wc">
+        <div class="wc-img"><div class="wc-bg b6"><!-- Replace b6 --><svg class="wc-ico" viewBox="0 0 60 60" fill="none"><path d="M8 48 Q30 8 52 48" stroke="white" stroke-width="1.5"/><path d="M8 28 Q30 52 52 28" stroke="white" stroke-width="1.5"/></svg></div></div>
+        <div class="wc-meta"><div><div class="wc-title">Motion Reel</div><div class="wc-yr">2023</div></div><div class="wc-tag">Motion</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="abig rvl">
+    Design<br>
+    <em>without</em><br>
+    limits.<br>
+    Art that<br>
+    <em>moves</em> you.
+  </div>
+  <div class="aright rvr">
+    <p class="ap">I'm Harry — a graphic designer and 3D artist obsessed with the space where visual storytelling meets dimensional thinking. I build identities, worlds, and experiences that feel alive.</p>
+    <p class="ap">Whether it's a brand system crafted down to its finest detail, or a 3D render that stops people mid-scroll — I make work that's impossible to ignore.</p>
+    <div class="sgrid">
+      <div><div class="sn">5+</div><div class="sl">Years Experience</div></div>
+      <div><div class="sn">60+</div><div class="sl">Projects Delivered</div></div>
+      <div><div class="sn">2D</div><div class="sl">Graphic Design</div></div>
+      <div><div class="sn">3D</div><div class="sl">Digital Art</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2 class="ch2 rv">
+    LET'S<br>
+    MAKE<br>
+    SOME<span class="it">THING</span><br>
+    WILD.
+  </h2>
+  <!-- REPLACE with your actual email -->
+  <div><a href="mailto:hello@harryshy.com" class="cemail">hello@harryshy.com</a></div>
+  <div class="srow">
+    <!-- REPLACE hrefs with your actual social URLs -->
+    <a href="#" class="sl2">Instagram</a>
+    <a href="#" class="sl2">Behance</a>
+    <a href="#" class="sl2">LinkedIn</a>
+    <a href="#" class="sl2">ArtStation</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Harry Shy</span>
+  <span>Graphic Designer & 3D Artist</span>
+  <span>Singapore</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* LOADER */
+const ldrBar=document.getElementById('ldrBar'),ldrPct=document.getElementById('ldrPct'),loader=document.getElementById('loader');
+let p=0;
+const iv=setInterval(()=>{p=Math.min(p+Math.random()*10,99);ldrPct.textContent=Math.round(p)+'%';ldrBar.style.width=p+'%';},80);
+setTimeout(()=>{
+  clearInterval(iv);p=100;ldrPct.textContent='100%';ldrBar.style.width='100%';
+  setTimeout(()=>{gsap.to(loader,{yPercent:-100,duration:1,ease:'power4.inOut',onComplete:()=>{loader.style.display='none';boot();}});},350);
+},1700);
+
+/* CANVAS */
+const cv=document.getElementById('heroCanvas'),cx=cv.getContext('2d');
+let W,H,pts=[],orbA=0;
+const ms={x:-999,y:-999};
+function rsz(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}
+rsz();window.addEventListener('resize',rsz);
+class P{constructor(){this.init();}
+  init(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.6+.3;this.vx=(Math.random()-.5)*.4;this.vy=(Math.random()-.5)*.4;this.op=Math.random()*.3+.05;this.lime=Math.random()>.88;}
+  tick(){const dx=ms.x-this.x,dy=ms.y-this.y,d=Math.sqrt(dx*dx+dy*dy);if(d<130){this.vx+=dx*.0007;this.vy+=dy*.0007;}this.x+=this.vx;this.y+=this.vy;this.vx*=.99;this.vy*=.99;if(this.x<0||this.x>W||this.y<0||this.y>H)this.init();}
+  draw(){cx.beginPath();cx.arc(this.x,this.y,this.r,0,Math.PI*2);cx.fillStyle=this.lime?'#c8f542':'#f0ede6';cx.globalAlpha=this.op;cx.fill();}
+}
+for(let i=0;i<90;i++)pts.push(new P());
+function drawOrb(){orbA+=.0035;const ox=W*.7+Math.sin(orbA)*35,oy=H*.42+Math.cos(orbA*.65)*22,or=Math.min(W,H)*.32+Math.sin(orbA*.45)*25;const g=cx.createRadialGradient(ox,oy,0,ox,oy,or);g.addColorStop(0,'rgba(200,245,66,.07)');g.addColorStop(.65,'rgba(200,245,66,.025)');g.addColorStop(1,'rgba(200,245,66,0)');cx.globalAlpha=1;cx.beginPath();cx.arc(ox,oy,or,0,Math.PI*2);cx.fillStyle=g;cx.fill();}
+function drawLines(){for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<85){cx.beginPath();cx.moveTo(pts[i].x,pts[i].y);cx.lineTo(pts[j].x,pts[j].y);cx.strokeStyle='#f0ede6';cx.globalAlpha=(1-d/85)*.035;cx.lineWidth=.5;cx.stroke();}}}
+function loop(){cx.clearRect(0,0,W,H);drawOrb();pts.forEach(p=>{p.tick();p.draw();});drawLines();requestAnimationFrame(loop);}
+loop();
+document.addEventListener('mousemove',e=>{ms.x=e.clientX;ms.y=e.clientY;});
+
+/* CURSOR */
+const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
+let mx=0,my=0,fx=0,fy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function cl(){fx+=(mx-fx)*.1;fy+=(my-fy)*.1;cur.style.left=mx+'px';cur.style.top=my+'px';cur2.style.left=fx+'px';cur2.style.top=fy+'px';requestAnimationFrame(cl);})();
+document.querySelectorAll('a,.wc').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));});
+
+/* DRAG SCROLL */
+const ds=document.getElementById('ds');
+let drag=false,sx,sl;
+ds.addEventListener('mousedown',e=>{drag=true;sx=e.pageX-ds.offsetLeft;sl=ds.scrollLeft;ds.classList.add('grab');});
+document.addEventListener('mouseup',()=>{drag=false;ds.classList.remove('grab');});
+ds.addEventListener('mousemove',e=>{if(!drag)return;e.preventDefault();ds.scrollLeft=sl-(e.pageX-ds.offsetLeft-sx)*1.6;});
+
+/* ANIMATIONS */
+function boot(){
+  gsap.from('#hl1',{yPercent:112,duration:1.3,ease:'power4.out',delay:.08});
+  gsap.from('#hl2',{yPercent:112,duration:1.3,ease:'power4.out',delay:.26});
+  gsap.from('.hero-label',{opacity:0,y:16,duration:1,ease:'power3.out',delay:.5});
+  gsap.from('.hero-desc',{opacity:0,y:16,duration:1,ease:'power3.out',delay:.65});
+  gsap.from('.scue',{opacity:0,y:16,duration:1,ease:'power3.out',delay:.8});
+  gsap.from('nav',{opacity:0,y:-18,duration:1,ease:'power3.out',delay:.55});
+
+  document.querySelectorAll('.rv').forEach(el=>{
+    gsap.to(el,{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 83%'}});
+  });
+  document.querySelectorAll('.rvl').forEach(el=>{
+    gsap.to(el,{opacity:1,x:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 78%'}});
+  });
+  document.querySelectorAll('.rvr').forEach(el=>{
+    gsap.to(el,{opacity:1,x:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 78%'}});
+  });
+  gsap.from('.wc',{opacity:0,y:65,stagger:.1,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'#works',start:'top 65%'}});
+  gsap.from('.ch2',{opacity:0,y:90,duration:1,ease:'power3.out',scrollTrigger:{trigger:'#contact',start:'top 72%'}});
+}
+</script>
+</body>
+</html>
