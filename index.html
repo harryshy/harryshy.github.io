@@ -13,7 +13,7 @@
 :root{--bg:#080808;--fg:#f0ede6;--acc:#c8f542;--mu:#222;--mu2:#555}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--fg);font-family:'Space Grotesk','Helvetica Neue',Arial,sans-serif;overflow-x:hidden;cursor:none}
-*{cursor:none!important}
+html,body,*,*::before,*::after{cursor:none!important}
 
 #cur{position:fixed;width:10px;height:10px;background:var(--acc);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s;mix-blend-mode:difference}
 #cur2{position:fixed;width:36px;height:36px;border:1px solid rgba(240,237,230,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
@@ -42,6 +42,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:2rem 3rem;display:fl
 .hero-h1 .ln{display:block;overflow:hidden}
 .hero-h1 .lni{display:block}
 .hero-h1 .acc{color:var(--acc);font-style:italic}
+.hero-typer{font-size:clamp(1.2rem,2.4vw,2.2rem);font-weight:400;opacity:.7;margin-top:1.4rem;letter-spacing:.01em;min-height:2.4rem}
+.tcursor{display:inline-block;color:var(--acc);animation:blink .75s step-end infinite;margin-left:2px;font-weight:300}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 .hero-btm{display:flex;justify-content:space-between;align-items:flex-end;margin-top:2.5rem}
 .hero-desc{font-size:.95rem;line-height:1.75;opacity:.45;max-width:260px}
 .scue{display:flex;flex-direction:column;align-items:center;gap:.5rem;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;opacity:.25}
@@ -140,8 +143,10 @@ footer{padding:1.8rem 3rem;display:flex;justify-content:space-between;border-top
     <div class="hero-label">Available for projects — 2025</div>
     <h1 class="hero-h1">
       <span class="ln"><span class="lni" id="hl1">HARRY</span></span>
-      <span class="ln"><span class="lni acc" id="hl2">SHY.</span></span>
+      <span class="ln"><span class="lni" id="hl2">SONG</span></span>
+      <span class="ln"><span class="lni acc" id="hl3">HAOYI.</span></span>
     </h1>
+    <div class="hero-typer" id="heroTyper">I'm a <span id="typerWord"></span><span class="tcursor">|</span></div>
     <div class="hero-btm">
       <p class="hero-desc">Crafting bold visuals at the intersection of graphic design and 3D art. I make things that stop the scroll.</p>
       <div class="scue"><div class="strack"><div class="sfill"></div></div><span>Scroll</span></div>
@@ -284,11 +289,30 @@ ds.addEventListener('mousemove',e=>{if(!drag)return;e.preventDefault();ds.scroll
 /* ANIMATIONS */
 function boot(){
   gsap.from('#hl1',{yPercent:112,duration:1.3,ease:'power4.out',delay:.08});
-  gsap.from('#hl2',{yPercent:112,duration:1.3,ease:'power4.out',delay:.26});
-  gsap.from('.hero-label',{opacity:0,y:16,duration:1,ease:'power3.out',delay:.5});
-  gsap.from('.hero-desc',{opacity:0,y:16,duration:1,ease:'power3.out',delay:.65});
-  gsap.from('.scue',{opacity:0,y:16,duration:1,ease:'power3.out',delay:.8});
+  gsap.from('#hl2',{yPercent:112,duration:1.3,ease:'power4.out',delay:.2});
+  gsap.from('#hl3',{yPercent:112,duration:1.3,ease:'power4.out',delay:.34});
+  gsap.from('#heroTyper',{opacity:0,y:14,duration:1,ease:'power3.out',delay:.7});
+  gsap.from('.hero-label',{opacity:0,y:16,duration:1,ease:'power3.out',delay:.6});
+  gsap.from('.hero-desc',{opacity:0,y:16,duration:1,ease:'power3.out',delay:.75});
+  gsap.from('.scue',{opacity:0,y:16,duration:1,ease:'power3.out',delay:.9});
   gsap.from('nav',{opacity:0,y:-18,duration:1,ease:'power3.out',delay:.55});
+
+  const words=['Graphic Designer','3D Artist','Visual Storyteller'];
+  const tw=document.getElementById('typerWord');
+  let wi=0,ci=0,del=false;
+  function type(){
+    const w=words[wi];
+    if(!del){
+      tw.textContent=w.slice(0,++ci);
+      if(ci===w.length) setTimeout(()=>{del=true;type();},1200);
+      else setTimeout(type,55+Math.random()*30);
+    }else{
+      tw.textContent=w.slice(0,--ci);
+      if(ci===0){del=false;wi=(wi+1)%words.length;setTimeout(type,250);}
+      else setTimeout(type,25);
+    }
+  }
+  setTimeout(type,1200);
 
   document.querySelectorAll('.rv').forEach(el=>{
     gsap.to(el,{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 83%'}});
